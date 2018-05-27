@@ -37,35 +37,6 @@
       "failureRedirect": "/login",
       "scope": ["email", "profile"],
       "failureFlash": true
-    },
-    "facebook-link": {
-      "provider": "facebook",
-      "module": "passport-facebook",
-      "clientID": "2048338848767100",
-      "clientSecret": "4c871c9328b70361feaeb6c75f808ffb",
-      "callbackURL": "/link/facebook/callback",
-      "authPath": "/link/facebook",
-      "callbackPath": "/link/facebook/callback",
-      "successRedirect": "/auth/account",
-      "failureRedirect": "/login",
-      "scope": ["email", "user_likes"],
-      "link": true,
-      "failureFlash": true
-    },
-    "google-link": {
-      "provider": "google",
-      "module": "passport-google-oauth",
-      "strategy": "OAuth2Strategy",
-      "clientID": "871566036254-q1t3vn88m2hfkrnlu5kpdf346c9s6m4v.apps.googleusercontent.com",
-      "clientSecret": "Vz-jPYtAkti7PxoTmqrnlBIF",
-      "callbackURL": "/link/google/callback",
-      "authPath": "/link/google",
-      "callbackPath": "/link/google/callback",
-      "successRedirect": "/auth/account",
-      "failureRedirect": "/login",
-      "scope": ["email", "profile"],
-      "link": true,
-      "failureFlash": true
     }
   }
     

@@ -70,9 +70,9 @@ app.middleware('auth', loopback.token({
   model: app.models.accessToken,
 }));
 
-app.middleware('session:before', cookieParser(app.get('cookieSecret')));
+app.middleware('session:before', cookieParser('kitty'));
 app.middleware('session', session({
-  secret: 'haler',
+  secret: 'kitty',
   saveUninitialized: true,
   resave: true,
 }));
@@ -91,9 +91,6 @@ for (var s in config) {
   c.session = c.session !== false;
   passportConfigurator.configureProvider(s, c);
 }
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-
-
 
 app.start = function() {
   // start the web server
