@@ -1,0 +1,97 @@
+{
+  "name": "Artist",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "middleName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "telephoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "genre": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "pricing": {
+      "type": "string"
+    },
+    "gigs": {
+      "type": [
+        "string"
+      ]
+    },
+    "reviews": {
+      "type": [
+        "string"
+      ]
+    },
+    "videos": {
+      "type": [
+        "string"
+      ]
+    },
+    "soundcloud": {
+      "type": [
+        "string"
+      ]
+    },
+    "gallery": {
+      "type": [
+        "any"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "create"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": [
+        "updateAttributes",
+        "deleteById"
+      ]
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+
+}

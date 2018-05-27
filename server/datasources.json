@@ -1,0 +1,28 @@
+{
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "ArtistSocialNetwork",
+    "password": "",
+    "name": "db",
+    "user": "",
+    "connector": "mongodb"
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "auth": {
+          "user": "artistsn123@gmail.com",
+          "pass": "artistS0cial"
+        }
+      }
+    ]
+  }
+}
