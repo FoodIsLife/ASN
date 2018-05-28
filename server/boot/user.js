@@ -11,11 +11,15 @@ module.exports = function (app) {
     //send verification email after registration
     User.observe('after save', function (ctx, next) {
         console.log('supports isNewInstance?', ctx.isNewInstance !== undefined);
-        console.log(ctx.Model)
         console.log(ctx.instance, 'usercreated!!!!!--------------', ctx.isNewInstance);
         var userInstance = ctx.instance;
 
         if (ctx.isNewInstance) {
+
+            var verifyLink= 'http://localhost:3000/confirm' +
+                            '?uid=' +
+                            userInstance.id +
+                            '&redirect=/verified';
 
             var options = {
                 type: 'email',
@@ -23,55 +27,24 @@ module.exports = function (app) {
                 from: senderAddress,
                 subject: 'Thanks for registering.',
                 //template: path.resolve(__dirname, '../../server/views/verify.ejs'),
+                verifyHref: verifyLink,
                 redirect: '/verified',
-                user: userInstance
+                user: userInstance,
+                text: 'Please verify your email by opening this link in a web browser'
             };
 
+            
+
             userInstance.verify(options, function (err, response) {
-                console.log(err);
                 if (err) {
                     User.deleteById(userInstance.id);
                 }
-                context.res.render('response', {
-                    title: 'Signed up successfully',
-                    content: 'Please check your email and click on the verification link ' +
-                        'before logging in.',
-                    redirectTo: '/',
-                    redirectToLinkText: 'Log in'
-                });
             });
         }
         next();
     });
 
 
-
-    // User.afterRemote('create', function(context, user, next) {
-    //     console.log('usercreated!!!!!--------------');
-    //     var options = {
-    //       type: 'email',
-    //       to: user.email,
-    //       from: senderAddress,
-    //       subject: 'Thanks for registering.',
-    //       //template: path.resolve(__dirname, '../../server/views/verify.ejs'),
-    //       redirect: '/verified',
-    //       user: user
-    //     };
-
-    //     user.verify(options, function(err, response) {
-    //       if (err) {
-    //         User.deleteById(user.id);
-    //         return next(err);
-    //       }
-    //       context.res.render('response', {
-    //         title: 'Signed up successfully',
-    //         content: 'Please check your email and click on the verification link ' +
-    //             'before logging in.',
-    //         redirectTo: '/',
-    //         redirectToLinkText: 'Log in'
-    //       });
-    //     });
-    // });
 
     // //Method to render
     //     User.afterRemote('prototype.verify', function(context, user, next) {

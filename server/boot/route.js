@@ -25,6 +25,22 @@ module.exports = function(app) {
     });
   });
 
+  //confirm
+  router.get('/confirm', function(req,res){
+    console.log(res, 'RESPONSE ____________');
+    console.log(req, 'REQUEST __________');
+    
+    User.confirm(uid, token, redirect, function(err) {
+      console.log(err);
+    });
+  });
+
+
+  //verified
+  router.get('/verified', function(req, res) {
+    console.log("VERIFIED");
+  });
+
   router.get('/home', function(req, res) {
     res.render('index', {user:
       req.user,
@@ -37,11 +53,6 @@ module.exports = function(app) {
       user: req.user,
       url: req.url,
     });
-  });
-
-  //verified
-  router.get('/verified', function(req, res) {
-    console.log("VERIFIED");
   });
 
     //log a user in
