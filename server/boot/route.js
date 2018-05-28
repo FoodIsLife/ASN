@@ -27,18 +27,49 @@ module.exports = function(app) {
 
   //confirm
   router.get('/confirm', function(req,res){
-    console.log(res, 'RESPONSE ____________');
-    console.log(req, 'REQUEST __________');
-    
-    User.confirm(uid, token, redirect, function(err) {
-      console.log(err);
-    });
+    console.log('confirming user');
+    User.confirm = function(uid, token, redirect, fn) {
+      console.log('inside user.confirm');
+      fn = fn || utils.createPromiseCallback();
+      this.findById(uid, function(err, user) {
+        if (err) {
+          fn(err);
+        } else {
+          if (user && user.verificationToken === token) {
+            user.verificationToken = null;
+            user.emailVerified = true;
+            user.save(function(err) {
+              if (err) {
+                fn(err);
+              } else {
+                fn();
+              }
+            });
+          } else {
+            if (user) {
+              err = new Error(g.f('Invalid token: %s', token));
+              err.statusCode = 400;
+              err.code = 'INVALID_TOKEN';
+            } else {
+              err = new Error(g.f('User not found: %s', uid));
+              err.statusCode = 404;
+              err.code = 'USER_NOT_FOUND';
+            }
+            fn(err);
+          }
+        }
+      });
+      return fn.promise;
+    };
   });
 
 
   //verified
   router.get('/verified', function(req, res) {
-    console.log("VERIFIED");
+    if(err){
+      res.sendStatus(500)
+    }
+    res.sendStatus(200)
   });
 
   router.get('/home', function(req, res) {
@@ -94,9 +125,15 @@ module.exports = function(app) {
 
 
   app.get('/auth/account', function(req,res,next){
-    console.log("---------------");
-    console.log(req.accessToken);
-    //return accesstoken to frontend
+    console.log("------USER auth/account---------");
+    console.log(req.body);
+  
+    res.render('home', {
+        username: req.body.username,
+        accessToken: req.accessToken,
+        redirectUrl: '/api/Artists/change-password?access_token=' + req.accessToken
+      });
+        //return accesstoken to frontend
   });
 
 
@@ -105,6 +142,7 @@ module.exports = function(app) {
     if (!req.accessToken) return res.sendStatus(401);
     User.logout(req.accessToken.id, function(err) {
       if (err) return next(err);
+      console.log('user logged out');
       res.redirect('/');
     });
   });
