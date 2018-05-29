@@ -58,27 +58,27 @@ module.exports = function (app) {
     //         });
     //     });
 
+    
 
 
+      //send password reset link when requested
+      User.on('resetPasswordRequest', function(info) {
+        var url = 'http://' + config.host + ':' + config.port + '/reset-password';
+        var html = 'Click <a href="' + url + '?access_token=' +
+            info.accessToken.id + '">here</a> to reset your password';
 
-    //   //send password reset link when requested
-    //   User.on('resetPasswordRequest', function(info) {
-    //     var url = 'http://' + config.host + ':' + config.port + '/reset-password';
-    //     var html = 'Click <a href="' + url + '?access_token=' +
-    //         info.accessToken.id + '">here</a> to reset your password';
+            User.app.models.Email.send({
+          to: info.email,
+          from: senderAddress,
+          subject: 'Password reset',
+          html: html
+        }, function(err) {
+          if (err) return console.log('> error sending password reset email');
+          console.log('> sending password reset email to:', info.email);
+        });
+      });
 
-    //         User.app.models.Email.send({
-    //       to: info.email,
-    //       from: senderAddress,
-    //       subject: 'Password reset',
-    //       html: html
-    //     }, function(err) {
-    //       if (err) return console.log('> error sending password reset email');
-    //       console.log('> sending password reset email to:', info.email);
-    //     });
-    //   });
-
-    //   //render UI page after password change
+      //render UI page after password change
     //   User.afterRemote('changePassword', function(context, user, next) {
     //     context.res.render('response', {
     //       title: 'Password changed successfully',
@@ -88,7 +88,7 @@ module.exports = function (app) {
     //     });
     //   });
 
-    //   //render UI page after password reset
+      //render UI page after password reset
     //   User.afterRemote('setPassword', function(context, user, next) {
     //     context.res.render('response', {
     //       title: 'Password reset success',

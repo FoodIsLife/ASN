@@ -28,39 +28,18 @@ module.exports = function(app) {
   //confirm
   router.get('/confirm', function(req,res){
     console.log('confirming user');
-    User.confirm = function(uid, token, redirect, fn) {
+    var uid = req.query.uid;
+    var token = req.query.token;
+    var redirect = req.query.token;
+
+    User.confirm(uid, token, redirect, function(err) {
+      console.log(token)
       console.log('inside user.confirm');
-      fn = fn || utils.createPromiseCallback();
-      this.findById(uid, function(err, user) {
-        if (err) {
-          fn(err);
-        } else {
-          if (user && user.verificationToken === token) {
-            user.verificationToken = null;
-            user.emailVerified = true;
-            user.save(function(err) {
-              if (err) {
-                fn(err);
-              } else {
-                fn();
-              }
-            });
-          } else {
-            if (user) {
-              err = new Error(g.f('Invalid token: %s', token));
-              err.statusCode = 400;
-              err.code = 'INVALID_TOKEN';
-            } else {
-              err = new Error(g.f('User not found: %s', uid));
-              err.statusCode = 404;
-              err.code = 'USER_NOT_FOUND';
-            }
-            fn(err);
-          }
-        }
-      });
-      return fn.promise;
-    };
+      if(err){
+        console.log(err);
+        res.sendStatus(500)
+      }
+    });
   });
 
 
@@ -152,8 +131,12 @@ module.exports = function(app) {
     User.resetPassword({
       email: req.body.email
     }, function(err) {
-      if (err) return res.status(401).send(err);
-      return res;
+      if (err) {
+        return res.status(401).send(err)
+      } else {
+        res.sendStatus(200);
+      }
+      
       // res.render('response', {
       //   title: 'Password reset requested',
       //   content: 'Check your email for further instructions',
