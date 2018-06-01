@@ -3,7 +3,7 @@ extends ../layouts/layout
 block content
   .row
     .col-md-6.col-md-offset-3
-      form(role='form', action='/auth/local', method='post')
+      form(role='form', action='/auth/emaillogin', method='post')
         .form-group
           label(for='username') Your username
           input#username.form-control(type='text', name='username', placeholder='Enter username')
@@ -11,5 +11,9 @@ block content
           label(for='password') Password
           input#password.form-control(type='password', name='password', placeholder='Password')
         button.btn.btn-default(type='submit') Submit
+
+        
       br
+
+      
       

@@ -17,9 +17,10 @@ module.exports = function(app) {
       password: req.body.password
     }
     User.create(cred, function (err, user) {
-      console.log(user);
+      
       if(err){
-        res.sendStatus(500)
+        console.log(err.message);
+      return res.sendStatus(422)
       }
       res.sendStatus(200)
     });
@@ -30,7 +31,7 @@ module.exports = function(app) {
     console.log('confirming user');
     var uid = req.query.uid;
     var token = req.query.token;
-    var redirect = req.query.token;
+    var redirect = req.query.redirect;
 
     User.confirm(uid, token, redirect, function(err) {
       console.log(token)
@@ -39,9 +40,9 @@ module.exports = function(app) {
         console.log(err);
         res.sendStatus(500)
       }
+      res.sendStatus(200)
     });
   });
-
 
   //verified
   router.get('/verified', function(req, res) {
@@ -51,6 +52,7 @@ module.exports = function(app) {
     res.sendStatus(200)
   });
 
+  //Created test views for testing
   router.get('/home', function(req, res) {
     res.render('index', {user:
       req.user,
@@ -58,64 +60,64 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/login', function(req, res, next) {
+//Created test views for testing
+  router.get('/login', function(req, res, next) {
     res.render('login', {
       user: req.user,
       url: req.url,
     });
   });
 
-    //log a user in
-  router.post('/auth/local', function(req, res) {
-    User.login({
-      username: req.body.username,
-      password: req.body.password
-    }, 'User', function(err, token) {
-      if (err) {
-        if(err.details && err.code === 'LOGIN_FAILED_EMAIL_NOT_VERIFIED'){
-          // res.render('reponseToTriggerEmail', {
-          //   title: 'Helooooo Login failed',
-          //   content: err,
-          //   redirectToEmail: '/api/Artists/'+ err.details.userId + '/verify',
-          //   redirectTo: '/',
-          //   redirectToLinkText: 'Click here',
-          //   userId: err.details.userId
-          // });
-          return err;
-        } else {
-          // res.render('response', {
-          //   title: 'Login failed. Wrong username or password',
-          //   content: err,
-          //   redirectTo: '/',
-          //   redirectToLinkText: 'Please login again',
-          // });
-          return err;
-        }
-        return;
-      }
-      // res.render('home', {
-      //   username: req.body.username,
-      //   accessToken: token.id,
-      //   redirectUrl: '/api/Artists/change-password?access_token=' + token.id
-      // });
-      return token;
-    });
+//Created test views for testing
+  router.get('/emaillogin', function(req,res){
+    res.render('local', {
+        user: req.user,
+        url: req.url
+    })
   });
 
 
-  app.get('/auth/account', function(req,res,next){
+    //log a user in
+  router.post('/auth/emaillogin', function(req, res) {
+    User.login({
+      username: req.body.username,
+      password: req.body.password
+    }, 'user', function(err, token) {
+      if (err) {
+        if(err.details && err.code === 'LOGIN_FAILED_EMAIL_NOT_VERIFIED'){
+          console.log(err);
+          res.sendStatus(401);
+        } else {
+          console.log(err);
+          res.sendStatus(400);
+        }
+        return;
+      }
+      console.log(token.id, "token id");
+      res.cookie('access_token', token.id, { signed: true , maxAge: 300000 });
+      res.render('home', {
+        username: req.body.username,
+        accessToken: token.id,
+        redirectUrl: '/logout'
+      });
+      //res.sendStatus(200);
+      //return token;
+    });
+  });
+
+//Created test views for testing
+  router.get('/auth/account', function(req,res,next){
     console.log("------USER auth/account---------");
-    console.log(req.body);
+    console.log(req.accessToken);
   
     res.render('home', {
         username: req.body.username,
         accessToken: req.accessToken,
-        redirectUrl: '/api/Artists/change-password?access_token=' + req.accessToken
+        redirectUrl: 'logout'
       });
-        //return accesstoken to frontend
+        
   });
-
-
+  
   //log a user out
   router.get('/logout', function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
@@ -134,26 +136,21 @@ module.exports = function(app) {
       if (err) {
         return res.status(401).send(err)
       } else {
+        console.log('check email for password reset');
         res.sendStatus(200);
       }
-      
-      // res.render('response', {
-      //   title: 'Password reset requested',
-      //   content: 'Check your email for further instructions',
-      //   redirectTo: '/',
-      //   redirectToLinkText: 'Log in'
-      // });
     });
   });
 
   //show password reset form
+  //Created test views for testing
   router.get('/reset-password', function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
-    // res.render('password-reset', {
-    //   redirectUrl: '/api/Artists/reset-password?access_token='+
-    //     req.accessToken.id
-    // });
-    return res;
+    //for testing: create page 
+     res.render('password-reset', {
+       redirectUrl: '/api/users/reset-password?access_token='+ req.accessToken.id
+     });
+    //return res;
   });
 
   app.use(router);

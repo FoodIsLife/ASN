@@ -40,6 +40,10 @@ try {
   process.exit(1); // fatal
 }
 
+
+//use loopback middleware for tokens
+app.use(loopback.token());
+
 // Setup the view engine (jade)
 var path = require('path');
 app.set('views', path.join(__dirname, 'views/pages'));
@@ -57,7 +61,6 @@ boot(app, __dirname, function(err) {
 });
 
 
-
 // to support JSON-encoded bodies
 app.middleware('parse', bodyParser.json());
 // to support URL-encoded bodies
@@ -70,6 +73,7 @@ app.middleware('auth', loopback.token({
   model: app.models.accessToken,
 }));
 
+app.use(cookieParser());
 app.middleware('session:before', cookieParser('kitty'));
 app.middleware('session', session({
   secret: 'kitty',
@@ -77,6 +81,7 @@ app.middleware('session', session({
   resave: true,
 }));
 passportConfigurator.init();
+
 
 // We need flash messages to see passport errors
 app.use(flash());
