@@ -4,7 +4,6 @@ var passport =  require('passport');
 
 module.exports = function(app) {
     var router = app.loopback.Router();
-    var Artist = app.models.Artist;
     var User = app.models.User;
 
   var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;

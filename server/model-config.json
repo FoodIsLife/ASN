@@ -54,5 +54,17 @@
   },
   "Email": {
     "dataSource": "emailDs"
+  },
+  "Events": {
+    "dataSource": "db",
+    "public": true
+  },
+  "UpcomingGigs": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ArtistReviews": {
+    "dataSource": "db",
+    "public": true
   }
 }

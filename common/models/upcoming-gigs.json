@@ -1,0 +1,30 @@
+{
+  "name": "UpcomingGigs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "gigName": {
+      "type": "string",
+      "required": true
+    },
+    "gigStartDate": {
+      "type": "date",
+      "required": true
+    },
+    "gigEndDate": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

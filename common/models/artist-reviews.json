@@ -1,0 +1,23 @@
+{
+  "name": "ArtistReviews",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Review": {
+      "type": "string"
+    },
+    "ReviewDate": {
+      "type": "date"
+    },
+    "ReviewerName": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

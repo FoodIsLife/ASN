@@ -1,5 +1,6 @@
 {
   "name": "Artist",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -96,5 +97,4 @@
     }
   ],
   "methods": {}
-
 }
