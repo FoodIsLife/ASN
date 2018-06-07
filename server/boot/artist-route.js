@@ -6,9 +6,32 @@ module.exports = function(app) {
     var router = app.loopback.Router();
     var Artist = app.models.Artist;
 
-    //endpoints
+    /*endpoints*/
 
     //create artist upon registration
+    router.post('/artist-update', function(req,res){
+        var id = req.accessToken.userId;
+        var body = {
+          firstName : 'Page',
+          userId : id,
+          lastName : 'Tangalin',
+          middleName: 'Perez',
+          telephoneNumber: '123456',
+          location: 'UK'
+
+
+        }
+        Artist.create(body, function (err, user) {
+          
+          if(err){
+            console.log(err.message);
+          return res.sendStatus(422)
+          }
+          res.sendStatus(200)
+        });
+      });
+
+
     //update profile in edit profile
 
     //get artist details
@@ -17,13 +40,12 @@ module.exports = function(app) {
 
     //update gigs
 
-    //get gifs
+    //get gigs
 
     //add reviews
 
     //get reviews
 
-
-    
+    app.use(router);
 
 };
