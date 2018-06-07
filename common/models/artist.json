@@ -37,6 +37,9 @@
     "pricing": {
       "type": "string"
     },
+    "profilePicture": {
+      "type": "string"
+    },
     "gigs": {
       "type": [
         "string"
