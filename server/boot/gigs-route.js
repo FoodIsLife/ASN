@@ -26,7 +26,7 @@ module.exports = function(app) {
     //delete gig
 
 
-    
+    app.use(router);
     
 
 };

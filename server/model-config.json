@@ -66,5 +66,21 @@
   "ArtistReviews": {
     "dataSource": "db",
     "public": true
+  },
+  "reviews": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ArtistVideos": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ArtistSoundCloud": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ArtistGallery": {
+    "dataSource": "db",
+    "public": true
   }
 }
