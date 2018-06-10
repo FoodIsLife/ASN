@@ -4,27 +4,21 @@ var passport =  require('passport');
 
 module.exports = function(app) {
     var router = app.loopback.Router();
-    var Gigs = app.models.Gigs;
+    var Reviews = app.models.Reviews;
     var Artist = app.models.Artist;
 
     //endpoints
 
-    //Create gig
-
-    //get all gigs of artist
+    //Create review
 
     //get gig by id
 
-    //get gig where filter is date range
-
-    //get gig where filter is exact date
-
-    //get gig by name
+    //get reviews by userId (all reviews of artist)
 
 
-    //modify gig details
+    //modify review details (only the reviwer can edit it)
 
-    //delete gig and delete gig in artist db
+    //delete review and delete review in artist db
 
 
 

@@ -3,12 +3,16 @@
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true
   },
   "properties": {
     "userId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "index": {
+        "unique": true
+      }
     },
     "firstName": {
       "type": "string",
