@@ -1,11 +1,16 @@
 {
-  "name": "reviews",
+  "name": "Reviews",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "strictObjectIDCoercion": true
   },
   "properties": {
+    "userId": {
+      "type": "string",
+      "required": true
+    },
     "ReviewSubject": {
       "type": "string"
     },

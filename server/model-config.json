@@ -63,11 +63,7 @@
     "dataSource": "db",
     "public": true
   },
-  "ArtistReviews": {
-    "dataSource": "db",
-    "public": true
-  },
-  "reviews": {
+  "Reviews": {
     "dataSource": "db",
     "public": true
   },

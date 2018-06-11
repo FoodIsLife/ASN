@@ -4,7 +4,7 @@ var passport =  require('passport');
 
 module.exports = function(app) {
     var router = app.loopback.Router();
-    var Gigs = app.models.Gigs;
+    var Gigs = app.models.Upcominggigs;
     var Artist = app.models.Artist;
 
     //endpoints

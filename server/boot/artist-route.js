@@ -5,6 +5,12 @@ var passport =  require('passport');
 module.exports = function(app) {
     var router = app.loopback.Router();
     var Artist = app.models.Artist;
+    var Gigs = app.models.UpcomingGigs;
+    var Reviews = app.models.Reviews;
+    var Gallery = app.models.Gallery;
+    var Videos = app.models.Videos;
+    var SoundCloud = app.models.SoundCloud;
+    
 
     /*endpoints*/
 
@@ -44,6 +50,8 @@ module.exports = function(app) {
     router.get('/userprofile', function(req, res){
         
         console.log('getting artist information');
+        var artistInfo = [];
+
         //var userId = req.accessToken.userId;
         //Artist.findOne({where: {userId:userId}});
         Artist.findOne({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, artist){
@@ -52,13 +60,37 @@ module.exports = function(app) {
                 console.log(err.message);
                 return res.sendStatus(422);
             }
-            //res.sendStatus(200);
-            return res.json(artist);
+            
+            //return res.json(artist);
+            artistInfo.push(artist);
         });
 
-    });
+        Gigs.find({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, gigs){
+            console.log(gigs);    
+            if(err){
+                console.log(err.message);
+                return res.sendStatus(422);
+            }
+            
+            //return res.json(artist);
+            artistInfo.push(gigs);
+        });
 
-    
+        Reviews.find({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, reviews){
+            console.log(reviews);    
+            if(err){
+                console.log(err.message);
+                return res.sendStatus(422);
+            }
+            
+            //return res.json(artist);
+            artistInfo.push(reviews);
+        });
+
+        console.log(artistInfo);
+        return res.json(artistInfo);
+
+    });
 
     //delete user profile
  

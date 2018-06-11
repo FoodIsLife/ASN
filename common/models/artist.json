@@ -44,16 +44,6 @@
     "profilePicture": {
       "type": "string"
     },
-    "gigs": {
-      "type": [
-        "string"
-      ]
-    },
-    "reviews": {
-      "type": [
-        "string"
-      ]
-    },
     "videos": {
       "type": [
         "string"

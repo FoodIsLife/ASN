@@ -6,6 +6,10 @@
     "validateUpsert": true
   },
   "properties": {
+    "userId":{
+      "type": "string",
+      "required": true
+    },
     "pictureURL": {
       "type": "string",
       "required": true
