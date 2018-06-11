@@ -47,6 +47,7 @@ module.exports = function(app) {
 
 
     //get artist details
+    //use nested api to get reviews and gigs localhost:3000/api/artists/{artistId}/upcominggigs
     router.get('/userprofile', function(req, res){
         
         console.log('getting artist information');
@@ -61,34 +62,9 @@ module.exports = function(app) {
                 return res.sendStatus(422);
             }
             
-            //return res.json(artist);
-            artistInfo.push(artist);
+            return res.json(artist);
         });
 
-        Gigs.find({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, gigs){
-            console.log(gigs);    
-            if(err){
-                console.log(err.message);
-                return res.sendStatus(422);
-            }
-            
-            //return res.json(artist);
-            artistInfo.push(gigs);
-        });
-
-        Reviews.find({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, reviews){
-            console.log(reviews);    
-            if(err){
-                console.log(err.message);
-                return res.sendStatus(422);
-            }
-            
-            //return res.json(artist);
-            artistInfo.push(reviews);
-        });
-
-        console.log(artistInfo);
-        return res.json(artistInfo);
 
     });
 

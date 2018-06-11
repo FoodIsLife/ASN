@@ -7,7 +7,7 @@
     "strictObjectIDCoercion": true
   },
   "properties": {
-    "userId": {
+    "artistId": {
       "type": "string",
       "required": true
     },

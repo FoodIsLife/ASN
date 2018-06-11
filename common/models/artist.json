@@ -61,7 +61,48 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "upcomingGigs": {
+      "type": "hasMany",
+      "model": "UpcomingGigs",
+      "foreignKey": "artistId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "artistGalleries": {
+      "type": "hasMany",
+      "model": "ArtistGallery",
+      "foreignKey": "artistId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "artistSoundClouds": {
+      "type": "hasMany",
+      "model": "ArtistSoundCloud",
+      "foreignKey": "artistId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "artistVideos": {
+      "type": "hasMany",
+      "model": "ArtistVideos",
+      "foreignKey": "artistId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "reviews": {
+      "type": "hasMany",
+      "model": "Reviews",
+      "foreignKey": "artistId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
   "acls": [
     {
       "accessType": "*",
