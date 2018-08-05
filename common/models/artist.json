@@ -10,13 +10,13 @@
     "userId": {
       "type": "string",
       "required": true,
+      "text":true,
       "index": {
         "unique": true
       }
     },
     "firstName": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "middleName": {
       "type": "string"
@@ -25,12 +25,13 @@
       "type": "string"
     },
     "telephoneNumber": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
-    "location": {
-      "type": "string",
-      "required": true
+    "country": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
     },
     "genre": {
       "type": "string"
@@ -43,21 +44,6 @@
     },
     "profilePicture": {
       "type": "string"
-    },
-    "videos": {
-      "type": [
-        "string"
-      ]
-    },
-    "soundcloud": {
-      "type": [
-        "string"
-      ]
-    },
-    "gallery": {
-      "type": [
-        "any"
-      ]
     }
   },
   "validations": [],

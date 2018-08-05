@@ -1,13 +1,11 @@
 {
   "db": {
-    "host": "localhost",
     "port": 27017,
-    "url": "",
-    "database": "ArtistSocialNetwork",
-    "password": "",
+    "database": "artistsocial",
     "name": "db",
-    "user": "",
-    "connector": "mongodb"
+    "url":"mongodb+srv://ivan:ivan@artistsocial-jb41c.mongodb.net/test?retryWrites=true",
+    "connector": "mongodb",
+    "allowExtendedOperators": true 
   },
   "emailDs": {
     "name": "emailDs",
@@ -29,7 +27,7 @@
     "name": "storage",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "/tmp/storage",
+    "root": "./storage/",
     "nameConflict": "makeUnique"
   }
 }

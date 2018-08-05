@@ -15,6 +15,10 @@
       "type": "string",
       "required": true
     },
+    "gigLocation": {
+      "type": "string",
+      "required": true
+    },
     "gigStartDate": {
       "type": "date",
       "required": true

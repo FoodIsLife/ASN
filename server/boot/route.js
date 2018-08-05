@@ -5,6 +5,7 @@ var passport =  require('passport');
 module.exports = function(app) {
     var router = app.loopback.Router();
     var User = app.models.User;
+    var Artist = app.models.Artist;
 
   var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
@@ -15,8 +16,8 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password
     }
+
     User.create(cred, function (err, user) {
-      
       if(err){
         console.log(err.message);
       return res.sendStatus(422)
@@ -39,7 +40,7 @@ module.exports = function(app) {
         console.log(err);
         res.sendStatus(500)
       }
-      res.sendStatus(200)
+      res.redirect('http://localhost:3000/')
     });
   });
 
@@ -59,64 +60,27 @@ module.exports = function(app) {
     });
   });
 
-//Created test views for testing
-  router.get('/login', function(req, res, next) {
-    res.render('login', {
-      user: req.user,
-      url: req.url,
-    });
-  });
-
-//Created test views for testing
-  router.get('/emaillogin', function(req,res){
-    res.render('local', {
-        user: req.user,
-        url: req.url
-    })
-  });
-
-
-    //log a user in
-  router.post('/auth/emaillogin', function(req, res) {
-    User.login({
-      username: req.body.username,
-      password: req.body.password
-    }, 'user', function(err, token) {
-      if (err) {
-        if(err.details && err.code === 'LOGIN_FAILED_EMAIL_NOT_VERIFIED'){
-          console.log(err);
-          res.sendStatus(401);
-        } else {
-          console.log(err);
-          res.sendStatus(400);
-        }
-        return;
-      }
-      console.log(token.id, "token id");
-      res.cookie('access_token', token.id, { signed: true , maxAge: 300000 });
-      res.render('home', {
-        username: req.body.username,
-        accessToken: token.id,
-        redirectUrl: '/logout'
-      });
-      //res.sendStatus(200);
-      //return token;
-    });
-  });
-
-//Created test views for testing
-  router.get('/auth/account', function(req,res,next){
-    console.log("------USER auth/account---------");
-    console.log(req.accessToken);
   
-    res.render('home', {
-        username: req.body.username,
-        accessToken: req.accessToken,
-        redirectUrl: 'logout'
-      });
+//Created test views for testing
+
+
+
+  router.get('/auth/account', function(req,res,next){
+    console.log(req);
+    
+    // console.log(req);
+
+  //   //res redirect to login - may code 
+    res.redirect(`http://localhost:3000/auth/account?userId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
+    // res.render('home', {
+    //     username: req.body.username,
+    //     accessToken: req.accessToken,
+    //     redirectUrl: 'logout'
+    //   });
         
   });
   
+
   //log a user out
   router.get('/logout', function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);

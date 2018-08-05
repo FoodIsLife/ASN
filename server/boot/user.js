@@ -6,17 +6,27 @@ var senderAddress = "artistsn123@gmail.com"; //Replace this address with your ac
 
 module.exports = function (app) {
     const User = app.models.User;
-
+    const Artist = app.models.Artist;
 
     //send verification email after registration
     User.observe('after save', function (ctx, next) {
-        console.log('supports isNewInstance?', ctx.isNewInstance !== undefined);
+        
         console.log(ctx.instance, 'usercreated!!!!!--------------', ctx.isNewInstance);
         var userInstance = ctx.instance;
 
+              //artist create with the information in signup form
+
+      var body = {
+        userId : ctx.instance.id,
+        email: ctx.instance.email,
+        //genre and telephone number not being passed.
+        //genre: req.body.genre,
+        //telephoneNumber: req.body.telephoneNumber,
+      }
+
         if (ctx.isNewInstance) {
 
-            var verifyLink= 'http://localhost:3000/confirm' +
+            var verifyLink= 'http://localhost:9999/confirm' +
                             '?uid=' +
                             userInstance.id +
                             '&redirect=/verified';
@@ -33,12 +43,19 @@ module.exports = function (app) {
                 text: 'Please verify your email by opening this link in a web browser'
             };
 
-            
 
-            userInstance.verify(options, function (err, response) {
-                if (err) {
-                    User.deleteById(userInstance.id);
-                }
+            //create artist after user creation
+            Artist.create(body, function (err, user) {
+                userInstance.verify(options, function (err, response) {
+                    if (err) {
+                        User.deleteById(userInstance.id);
+                    }
+                });
+                // if(err){
+                //     console.log(err.message);
+                //     return res.sendStatus(422)
+                // }
+                // res.sendStatus(200)
             });
         }
         next();

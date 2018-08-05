@@ -22,21 +22,22 @@ module.exports = function(app) {
         console.log(req.body);
         var body = {
           firstName : req.body.firstName,
-          userId : '5b10131db7b13f5b7b392542',
+          userId : req.body.userId, //req.accessToken.userId,
           lastName : req.body.lastName,
           middleName: req.body.middleName,
           telephoneNumber: req.body.telephoneNumber,
           location: req.body.location
         }
         //upsertwithwhere not working,
-        Artist.create(body, function (err, user) {
+        //change to update
+        // Artist.create(body, function (err, user) {
         
-            if(err){
-                console.log(err.message);
-                return res.sendStatus(422)
-            }
-            res.sendStatus(200)
-        });
+        //     if(err){
+        //         console.log(err.message);
+        //         return res.sendStatus(422)
+        //     }
+        //     res.sendStatus(200)
+        // });
         
         
     });
@@ -55,7 +56,7 @@ module.exports = function(app) {
 
         //var userId = req.accessToken.userId;
         //Artist.findOne({where: {userId:userId}});
-        Artist.findOne({ where: {userId: "5b10131db7b13f5b7b392542"}}, function (err, artist){
+        Artist.findOne({ where: {userId: userId}}, function (err, artist){
             console.log(artist);    
             if(err){
                 console.log(err.message);
