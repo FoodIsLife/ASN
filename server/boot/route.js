@@ -82,11 +82,12 @@ module.exports = function(app) {
 
   //log a user out
   router.get('/logout', function(req, res, next) {
-    if (!req.accessToken) return res.sendStatus(401);
-    User.logout(req.accessToken.id, function(err) {
+    console.log(req)
+    if (!req.query.accessToken) return res.sendStatus(401);
+    User.logout(req.query.accessToken, function(err) {
       if (err) return next(err);
       console.log('user logged out');
-      res.redirect('/');
+      res.send(200);
     });
   });
 
