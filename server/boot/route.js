@@ -19,9 +19,9 @@ module.exports = function(app) {
 
     User.create(cred, function (err, user) {
       if(err){
-        return res.status(400).send({error: err.message})
+        return res.status(400).send({error: {message:err.message}})
       }
-      res.sendStatus(200)
+      res.status(200).send({message:"user created"})
     });
   });
 

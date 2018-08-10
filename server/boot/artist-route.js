@@ -50,19 +50,12 @@ module.exports = function(app) {
     //get artist details
     //use nested api to get reviews and gigs localhost:3000/api/artists/{artistId}/upcominggigs
     router.get('/userprofile', function(req, res){
-        
-        console.log('getting artist information');
-        var artistInfo = [];
-
-        //var userId = req.accessToken.userId;
-        //Artist.findOne({where: {userId:userId}});
+        const { userId } = req.query
         Artist.findOne({ where: {userId: userId}}, function (err, artist){
-            console.log(artist);    
+            console.log(artist)
             if(err){
-                console.log(err.message);
-                return res.sendStatus(422);
+                return res.status(422).send({error:{message:err.message}});
             }
-            
             return res.json(artist);
         });
 

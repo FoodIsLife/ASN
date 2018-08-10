@@ -1,9 +1,8 @@
 {
   "db": {
     "port": 27017,
-    "database": "artistsocial",
+    "database": "ArtistSocialNetwork",
     "name": "db",
-    "url":"mongodb+srv://ivan:ivan@artistsocial-jb41c.mongodb.net/test?retryWrites=true",
     "connector": "mongodb",
     "allowExtendedOperators": true 
   },
