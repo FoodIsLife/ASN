@@ -9,7 +9,7 @@ module.exports = function (app) {
     const Artist = app.models.Artist;
 
     //send verification email after registration
-    User.observe('after save', function (ctx, next) {
+    Artist.observe('after save', function (ctx, next) {
         
         console.log(ctx.instance, 'usercreated!!!!!--------------', ctx.isNewInstance);
         var userInstance = ctx.instance;
@@ -25,7 +25,7 @@ module.exports = function (app) {
       }
 
         if (ctx.isNewInstance) {
-
+            console.log("user is new instance creating verification link");
             var verifyLink= 'http://localhost:9999/confirm' +
                             '?uid=' +
                             userInstance.id +
@@ -45,43 +45,41 @@ module.exports = function (app) {
 
 
             //create artist after user creation
-            Artist.create(body, function (err, user) {
+            // Artist.create(body, function (err, user) {
                 userInstance.verify(options, function (err, response) {
                     if (err) {
-                        User.deleteById(userInstance.id);
+                        Artist.deleteById(userInstance.id);
                     }
+                    //res.sendStatus(200)
                 });
-                // if(err){
-                //     console.log(err.message);
-                //     return res.sendStatus(422)
-                // }
-                // res.sendStatus(200)
-            });
+                
+                
+            // });
         }
         next();
     });
 
     //send password reset link when requested
-    User.on('resetPasswordRequest', function(info) {
+    Artist.on('resetPasswordRequest', function(info) {
         var url = 'http://' + config.host + ':' + config.port + '/reset-password';
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 
-            User.app.models.Email.send({
-        to: info.email,
-        from: senderAddress,
-        subject: 'Password reset',
-        html: html
-        }, function(err) {
-        if (err) return console.log('> error sending password reset email');
-        console.log('> sending password reset email to:', info.email);
-        });
+            Artist.app.models.Email.send({
+            to: info.email,
+            from: senderAddress,
+            subject: 'Password reset',
+            html: html
+            }, function(err) {
+            if (err) return console.log('> error sending password reset email');
+            console.log('> sending password reset email to:', info.email);
+            });
     });
 
 
     //CODE BELOW NOT BEING FIRED
     // //Method to render
-        User.afterRemote('prototype.verify', function(context, user, next) {
+    Artist.afterRemote('prototype.verify', function(context, user, next) {
             console.log('proptype verify');
             context.res.render('response', {
             title: 'A Link to reverify your identity has been sent '+
@@ -96,10 +94,8 @@ module.exports = function (app) {
     
 
 
-     
-
       //render UI page after password change
-      User.afterRemote('changePassword', function(context, user, next) {
+    Artist.afterRemote('changePassword', function(context, user, next) {
         context.res.render('response', {
           title: 'Password changed successfully',
           content: 'Please login again with new password',
@@ -109,7 +105,7 @@ module.exports = function (app) {
       });
 
       //render UI page after password reset
-      User.afterRemote('setPassword', function(context, user, next) {
+    Artist.afterRemote('setPassword', function(context, user, next) {
         context.res.render('response', {
           title: 'Password reset success',
           content: 'Your password has been reset successfully',

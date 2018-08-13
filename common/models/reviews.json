@@ -34,7 +34,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "artist": {
+      "type": "belongsTo",
+      "model": "Artist",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

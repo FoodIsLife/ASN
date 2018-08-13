@@ -1,20 +1,12 @@
 {
   "name": "Artist",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true,
     "strictObjectIDCoercion": true
   },
   "properties": {
-    "userId": {
-      "type": "string",
-      "required": true,
-      "text":true,
-      "index": {
-        "unique": true
-      }
-    },
     "firstName": {
       "type": "string"
     },
