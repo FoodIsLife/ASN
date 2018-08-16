@@ -36,6 +36,9 @@
     },
     "profilePicture": {
       "type": "string"
+    },
+    "userType":{
+      "type": "string"
     }
   },
   "validations": [],
