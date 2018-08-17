@@ -17,10 +17,19 @@
     "eventEndDate": {
       "type": "date",
       "required": true
+    },
+    "artistId": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": { 
+    "artist": {
+    "type": "belongsTo",
+    "model": "Artist",
+    "foreignKey": ""
+  }},
   "acls": [],
   "methods": {}
 }
