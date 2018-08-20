@@ -18,6 +18,9 @@
       "type": "date",
       "required": true
     },
+    "eventLocation": {
+      "type": "string"
+    },
     "artistId": {
       "type": "string",
       "required": true

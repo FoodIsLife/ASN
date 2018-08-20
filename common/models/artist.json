@@ -4,16 +4,11 @@
   "idInjection": true,
   "options": {
     "validateUpsert": true,
-    "strictObjectIDCoercion": true
+    "strictObjectIDCoercion": true,
+    "emailVerificationRequired": true
   },
   "properties": {
-    "firstName": {
-      "type": "string"
-    },
-    "middleName": {
-      "type": "string"
-    },
-    "lastName": {
+    "name": {
       "type": "string"
     },
     "telephoneNumber": {
@@ -38,6 +33,9 @@
       "type": "string"
     },
     "userType":{
+      "type": "string"
+    },
+    "artistType":{
       "type": "string"
     }
   },

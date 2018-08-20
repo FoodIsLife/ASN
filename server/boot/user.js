@@ -26,7 +26,7 @@ module.exports = function (app) {
 
         if (ctx.isNewInstance) {
             console.log("user is new instance creating verification link");
-            var verifyLink= 'http://localhost:9999/confirm' +
+            var verifyLink= 'http://gigifier.com/confirm' +
                             '?uid=' +
                             userInstance.id +
                             '&redirect=/verified';
@@ -47,6 +47,7 @@ module.exports = function (app) {
             //create artist after user creation
             // Artist.create(body, function (err, user) {
                 userInstance.verify(options, function (err, response) {
+                    console.log(err)
                     if (err) {
                         Artist.deleteById(userInstance.id);
                     }
@@ -61,7 +62,7 @@ module.exports = function (app) {
 
     //send password reset link when requested
     Artist.on('resetPasswordRequest', function(info) {
-        var url = 'http://' + config.host + ':' + config.port + '/reset-password';
+        var url = 'http://gigifier.com/reset-password';
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 

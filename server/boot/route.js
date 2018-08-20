@@ -14,7 +14,13 @@ module.exports = function(app) {
     var cred = {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      userType: req.body.userType,
+      name: req.body.name
+    }
+
+    if(req.body.artistType){
+      cred["artistType"] = req.body.artistType
     }
 
     Artist.create(cred, function (err, user) {
@@ -39,7 +45,7 @@ module.exports = function(app) {
         console.log(err);
         res.sendStatus(500)
       }
-      res.redirect('http://localhost:3000/')
+      res.redirect('http://gigifier.com')
     });
   });
 
@@ -52,34 +58,24 @@ module.exports = function(app) {
   });
 
   //Created test views for testing
-  router.get('/home', function(req, res) {
-    res.render('index', {user:
-      req.user,
-      url: req.url,
-    });
-  });
+  // router.get('/home', function(req, res) {
+  //   res.render('index', {user:
+  //     req.user,
+  //     url: req.url,
+  //   });
+  // });
 
   
-//Created test views for testing
-  // router.get('/auth/account', function(req,res,next){
-  //   console.log(req);
-    
-  //   // console.log(req);
-
-  // //   //res redirect to login - may code 
-  //   res.redirect(`http://localhost:3000/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
-  //   // res.render('home', {
-  //   //     username: req.body.username,
-  //   //     accessToken: req.accessToken,
-  //   //     redirectUrl: 'logout'
-  //   //   });
+  router.get('/auth/account', function(req,res,next){
+    // console.log(req);
+  //   //res redirect to login - may code 
+    res.redirect(`http://gigifier.com/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
         
-  // });
+  });
   
 
   //log a user out
   router.get('/logout', function(req, res, next) {
-    console.log(req)
     if (!req.query.accessToken) return res.sendStatus(401);
     Artist.logout(req.query.accessToken, function(err) {
       if (err) return next(err);

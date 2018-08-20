@@ -13,35 +13,47 @@ module.exports = function(app) {
     var Events = app.models.Events;
 
         
-    router.post('/search', function(req,res){
+    router.post('/search-artists', function(req,res){
         console.log('search triggered', req.body.searchterm);
         var searchText = req.body.searchterm;
         const db = Artist.getDataSource().connector;
         const artistCollection = db.collection(Artist.modelName);
-        const eventCollection = db.collection(Events.modelName);
-        const gigCollection = db.collection(Gigs.modelName);
-
 
         var artistResult = artistCollection.find({ $text: { $search: searchText } });
-        var eventResult = eventCollection.find({ $text: {$search: searchText}});
-        var gigResult = gigCollection.find({ $text: {$search: searchText}});
-        
-        
+
         //var searchRes = [...artistResult,...eventResult,...gigResult];
         
         //return res.json(searchRes);
-        
-        
+             
         artistResult.toArray(function(err, art){
             console.log(art);
             
             if (err){
                 console.log(err);
+                return res.json([])
             }
             return res.json(art);
         });
-        
+    });
 
+
+    router.post('/search-events', function(req,res){
+        console.log('search triggered', req.body.searchterm);
+        var searchText = req.body.searchterm;
+        const db = Artist.getDataSource().connector;
+        const eventCollection = db.collection(Events.modelName);
+
+        var eventResult = eventCollection.find({ $text: {$search: searchText}});
+           
+        eventResult.toArray(function(err, art){
+            console.log(art);
+            
+            if (err){
+                console.log(err);
+                return res.json([])
+            }
+            return res.json(art);
+        });
     });
 
 app.use(router);
