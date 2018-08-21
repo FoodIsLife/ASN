@@ -107,6 +107,13 @@
       ]
     },
     {
+      "property": "changePassword",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "accessType": "EXECUTE",
+      "permission": "ALLOW"
+    }, 
+    {
       "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$everyone",

@@ -14,16 +14,6 @@ module.exports = function (app) {
         console.log(ctx.instance, 'usercreated!!!!!--------------', ctx.isNewInstance);
         var userInstance = ctx.instance;
 
-              //artist create with the information in signup form
-
-      var body = {
-        userId : ctx.instance.id,
-        email: ctx.instance.email,
-        //genre and telephone number not being passed.
-        //genre: req.body.genre,
-        //telephoneNumber: req.body.telephoneNumber,
-      }
-
         if (ctx.isNewInstance) {
             console.log("user is new instance creating verification link");
             var verifyLink= 'http://localhost:8080/confirm' +
@@ -96,23 +86,23 @@ module.exports = function (app) {
 
 
       //render UI page after password change
-    Artist.afterRemote('changePassword', function(context, user, next) {
-        context.res.render('response', {
-          title: 'Password changed successfully',
-          content: 'Please login again with new password',
-          redirectTo: '/',
-          redirectToLinkText: 'Log in'
-        });
-      });
+    // Artist.afterRemote('changePassword', function(context, user, next) {
+    //     context.res.render('response', {
+    //       title: 'Password changed successfully',
+    //       content: 'Please login again with new password',
+    //       redirectTo: '/',
+    //       redirectToLinkText: 'Log in'
+    //     });
+    //   });
 
-      //render UI page after password reset
-    Artist.afterRemote('setPassword', function(context, user, next) {
-        context.res.render('response', {
-          title: 'Password reset success',
-          content: 'Your password has been reset successfully',
-          redirectTo: '/',
-          redirectToLinkText: 'Log in'
-        });
-      });
+    //   //render UI page after password reset
+    // Artist.afterRemote('setPassword', function(context, user, next) {
+    //     context.res.render('response', {
+    //       title: 'Password reset success',
+    //       content: 'Your password has been reset successfully',
+    //       redirectTo: '/',
+    //       redirectToLinkText: 'Log in'
+    //     });
+    //   });
 
 };

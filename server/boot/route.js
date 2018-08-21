@@ -39,7 +39,7 @@ module.exports = function(app) {
     var redirect = req.query.redirect;
 
     Artist.confirm(uid, token, redirect, function(err) {
-      console.log(token)
+      //console.log(token)
       console.log('inside user.confirm');
       if(err){
         console.log(err);
@@ -51,9 +51,7 @@ module.exports = function(app) {
 
   //verified
   router.get('/verified', function(req, res) {
-    if(err){
-      res.sendStatus(500)
-    }
+    //console.log(res);
     res.sendStatus(200)
   });
 
@@ -85,7 +83,8 @@ module.exports = function(app) {
   });
 
   //send an email with instructions to reset an existing user's password
-  router.post('/request-password-reset', function(req, res, next) {
+  router.post('/forgot-password', function(req, res, next) {
+    console.log('forgot password',req.body.email);
     Artist.resetPassword({
       email: req.body.email
     }, function(err) {
@@ -93,20 +92,42 @@ module.exports = function(app) {
         return res.status(401).send(err)
       } else {
         console.log('check email for password reset');
-        res.sendStatus(200);
+        res.status(200).send({message:"check email for password reset instructions"});
       }
     });
   });
 
   //show password reset form
   //Created test views for testing
-  router.get('/reset-password', function(req, res, next) {
+  router.post('/reset-password', function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
-    //for testing: create page 
-     res.render('password-reset', {
-       redirectUrl: '/api/artists/reset-password?access_token='+ req.accessToken.id
-     });
-    //return res;
+    Artist.findById(req.accessToken.userId, function(err, artist) {
+      if (err) return res.sendStatus(404);
+      artist.updateAttribute('password', artist.hashPassword(req.body.password), function(err, artist) {
+      if (err) return res.sendStatus(404);
+        console.log('> password reset processed successfully');
+        res.status(200).send({message: "Password has been successfully changed"})
+      });
+   });
+  });
+
+  router.post('/change-password', function(req,res,next){
+    console.log("in change password", req.accessToken);
+    Artist.findById(req.accessToken.userId, function(err, artist) {
+      if (err) return res.sendStatus(404);
+      artist.hasPassword(req.body.oldPassword, function(err, isMatch) {
+        if (!isMatch) {
+          return res.sendStatus(401);
+        } else {
+          console.log('new password', req.body.newPassword);
+          artist.updateAttribute('password', Artist.hashPassword(req.body.newPassword), function(err, artist) {
+            if (err) return res.sendStatus(404);
+            console.log('> password change request processed successfully');
+            res.status(200).send({msg: 'password change request processed successfully'});
+          });
+        }
+      });
+    });
   });
 
   app.use(router);
