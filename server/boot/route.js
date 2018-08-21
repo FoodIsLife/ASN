@@ -84,7 +84,7 @@ module.exports = function(app) {
 
   //send an email with instructions to reset an existing user's password
   router.post('/forgot-password', function(req, res, next) {
-    console.log('forgot password',req.body.email);
+    console.log('forgot password email',req.body.email);
     Artist.resetPassword({
       email: req.body.email
     }, function(err) {
@@ -97,13 +97,23 @@ module.exports = function(app) {
     });
   });
 
-  //show password reset form
-  //Created test views for testing
+   //show password reset form
+   app.get('/resetpassword', function(req, res, next) {
+    if (!req.accessToken) return res.sendStatus(401);
+    res.redirect('http://localhost:3000/resetpassword?access_token='+ req.accessToken.id)
+    // res.render('password-reset', {
+    //   redirectUrl: '/api/users/reset-password?access_token='+
+    //     req.accessToken.id
+    // });
+  });
+
+  //reset user password
   router.post('/reset-password', function(req, res, next) {
     if (!req.accessToken) return res.sendStatus(401);
     Artist.findById(req.accessToken.userId, function(err, artist) {
       if (err) return res.sendStatus(404);
-      artist.updateAttribute('password', artist.hashPassword(req.body.password), function(err, artist) {
+      console.log("reset password new:",req.body.password);
+      artist.updateAttribute('password', Artist.hashPassword(req.body.password), function(err, artist) {
       if (err) return res.sendStatus(404);
         console.log('> password reset processed successfully');
         res.status(200).send({message: "Password has been successfully changed"})
