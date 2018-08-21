@@ -37,6 +37,12 @@
     },
     "artistType":{
       "type": "string"
+    },
+    "categories":{
+      "type": "string"
+    },
+    "experience":{
+      "type": "string"
     }
   },
   "validations": [],
