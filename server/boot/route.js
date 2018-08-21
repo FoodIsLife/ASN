@@ -112,8 +112,8 @@ module.exports = function(app) {
     if (!req.accessToken) return res.sendStatus(401);
     Artist.findById(req.accessToken.userId, function(err, artist) {
       if (err) return res.sendStatus(404);
-      console.log("reset password new:",req.body.password);
-      artist.updateAttribute('password', Artist.hashPassword(req.body.password), function(err, artist) {
+      console.log("reset password new:",req.body.newPassword);
+      artist.updateAttribute('password', Artist.hashPassword(req.body.newPassword), function(err, artist) {
       if (err) return res.sendStatus(404);
         console.log('> password reset processed successfully');
         res.status(200).send({message: "Password has been successfully changed"})
