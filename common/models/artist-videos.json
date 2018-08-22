@@ -10,13 +10,23 @@
       "type": "string",
       "required": true
     },
-    "VideoURL": {
+    "videoURL": {
       "type": "string",
       "required": true
+    },
+    "videoTitle": {
+      "type": "string"
+
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "artist": {
+      "type": "belongsTo",
+      "model": "Artist",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
