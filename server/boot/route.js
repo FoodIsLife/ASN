@@ -45,7 +45,7 @@ module.exports = function(app) {
         console.log(err);
         res.sendStatus(500)
       }
-      res.redirect('http://localhost:3000')
+      res.redirect('http://localhost:3000/login?confirmed=true')
     });
   });
 
@@ -54,14 +54,6 @@ module.exports = function(app) {
     //console.log(res);
     res.sendStatus(200)
   });
-
-  //Created test views for testing
-  // router.get('/home', function(req, res) {
-  //   res.render('index', {user:
-  //     req.user,
-  //     url: req.url,
-  //   });
-  // });
 
   
   router.get('/auth/account', function(req,res,next){
