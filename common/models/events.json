@@ -27,12 +27,13 @@
     }
   },
   "validations": [],
-  "relations": { 
+  "relations": {
     "artist": {
-    "type": "belongsTo",
-    "model": "Artist",
-    "foreignKey": ""
-  }},
+      "type": "belongsTo",
+      "model": "Artist",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

@@ -29,19 +29,25 @@
     "pricing": {
       "type": "string"
     },
-    "profilePicture": {
+    "profPicName": {
       "type": "string"
     },
-    "userType":{
+    "profPicType": {
       "type": "string"
     },
-    "artistType":{
+    "profPicUrl": {
       "type": "string"
     },
-    "categories":{
+    "userType": {
       "type": "string"
     },
-    "experience":{
+    "artistType": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "string"
+    },
+    "experience": {
       "type": "string"
     }
   },
@@ -124,6 +130,13 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "upload"
     }
   ],
   "methods": {}

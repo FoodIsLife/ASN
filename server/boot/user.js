@@ -69,40 +69,22 @@ module.exports = function (app) {
 
 
     //CODE BELOW NOT BEING FIRED
-    // //Method to render
-    Artist.afterRemote('prototype.verify', function(context, user, next) {
-            console.log('proptype verify');
-            context.res.render('response', {
-            title: 'A Link to reverify your identity has been sent '+
-                'to your email successfully',
-            content: 'Please check your email and click on the verification link '+
-                'before logging in',
-            redirectTo: '/',
-            redirectToLinkText: 'Log in'
-            });
-        });
+    // // //Method to render
+    // Artist.afterRemote('prototype.verify', function(context, user, next) {
+    //         console.log('proptype verify');
+    //         context.res.render('response', {
+    //         title: 'A Link to reverify your identity has been sent '+
+    //             'to your email successfully',
+    //         content: 'Please check your email and click on the verification link '+
+    //             'before logging in',
+    //         redirectTo: '/',
+    //         redirectToLinkText: 'Log in'
+    //         });
+    //     });
 
     
 
 
-      //render UI page after password change
-    // Artist.afterRemote('changePassword', function(context, user, next) {
-    //     context.res.render('response', {
-    //       title: 'Password changed successfully',
-    //       content: 'Please login again with new password',
-    //       redirectTo: '/',
-    //       redirectToLinkText: 'Log in'
-    //     });
-    //   });
 
-    //   //render UI page after password reset
-    // Artist.afterRemote('setPassword', function(context, user, next) {
-    //     context.res.render('response', {
-    //       title: 'Password reset success',
-    //       content: 'Your password has been reset successfully',
-    //       redirectTo: '/',
-    //       redirectToLinkText: 'Log in'
-    //     });
-    //   });
 
 };

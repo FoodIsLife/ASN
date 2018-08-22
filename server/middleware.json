@@ -40,10 +40,21 @@
       ]
     }
   },
-  "files":  {
-    "loopback#static": [ 
-      { "name": "publicPath", "paths": ["/"], "params": "$!../client" }, 
-      { "name": "reactRouter", "paths": ["*"], "params": "$!../client/index.html", "optional":true } 
+  "files": {
+    "loopback#static": [
+      {
+        "paths": [
+          "/"
+        ],
+        "params": "$!../client"
+      },
+      {
+        "paths": [
+          "*"
+        ],
+        "params": "$!../client/index.html",
+        "optional": true
+      }
     ]
   },
   "final": {

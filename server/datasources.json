@@ -4,7 +4,7 @@
     "database": "ArtistSocialNetwork",
     "name": "db",
     "connector": "mongodb",
-    "allowExtendedOperators": true 
+    "allowExtendedOperators": true
   },
   "emailDs": {
     "name": "emailDs",
