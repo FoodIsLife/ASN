@@ -9,14 +9,14 @@ module.exports = function(Artist) {
     Artist.validatesUniquenessOf('email', {message: 'email is not unique'});
     console.log('here');
 
-    Artist.upload = function (ctx,options,cb) {
-        if(!options) options = {};
+    Artist.upload = function (req,res,cb) {
+        //if(!options) options = {};
         ctx.req.params.container = 'images';
-        Artist.app.models.container.upload(ctx.req,ctx.result,options,function (err,fileObj) {
+        Artist.app.models.container.upload(req,res,{container: "images"},function (err,fileObj) {
             if(err) {
                 cb(err);
             } else {
-                console.log(fileObj.files);
+                console.log("image uploaded", fileObj.files);
                 var fileInfo = fileObj.files;
                 var profPicInfo = {
                     profPicName: fileInfo.name,
@@ -24,8 +24,9 @@ module.exports = function(Artist) {
                     container: fileInfo.container,
                     profPicUrl: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name
                 }
-
-                Artist.findById(ctx.req.accessToken.userId, function(err, artist) {
+                console.log("update user for prof pic", req.accessToken);
+                Artist.findById(req.accessToken.userId, function(err, artist) {
+                    
                     if (err) return cb(err);//res.sendStatus(404);
                     console.log("file upload", profPicInfo);
                     artist.updateAttributes(profPicInfo, {validate:false}, function(err, artist) {
@@ -59,13 +60,15 @@ module.exports = function(Artist) {
         {
             description: 'Uploads a file',
             accepts: [
-                { arg: 'ctx', type: 'object', http: { source:'context' } },
-                { arg: 'options', type: 'object', http:{ source: 'query'} }
+                //{ arg: 'ctx', type: 'object', http: { source:'context' } },
+                //{ arg: 'options', type: 'object', http:{ source: 'query'} }
+                {arg: 'req', type: 'object', 'http': {source: 'req'}},
+                {arg: 'res', type: 'object', 'http': {source: 'res'}}
             ],
             returns: {
                 arg: 'fileObject', type: 'object', root: true
             },
-            http: {verb: 'post'}
+            http: {path: '/upload' ,verb: 'post'}
         }
     );
 
