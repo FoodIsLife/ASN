@@ -10,15 +10,28 @@
       "type": "string",
       "required": true
     },
+    "eventCreated": {
+      "type": "date"
+    },
     "eventStartDate": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "eventEndDate": {
-      "type": "date",
-      "required": true
+      "type": "date"
     },
     "eventLocation": {
+      "type": "string"
+    },
+    "eventDescription": {
+      "type": "string"
+    },
+    "eventGenre": {
+      "type": "string"
+    },
+    "eventPrice": {
+      "type": "string"
+    },
+    "eventLength": {
       "type": "string"
     },
     "artistId": {
