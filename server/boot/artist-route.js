@@ -14,7 +14,7 @@ module.exports = function(app) {
     router.get('/userprofile', function(req, res){
 
         const { artistId } = req.query
-        Artist.findOne({include: ['upcomingGigs', 'reviews' ]}, { where: {id: artistId}}, function (err, artist){
+        Artist.findOne({include: ['upcomingGigs', 'reviews', 'artistGallery', 'artistVideos', 'artistSoundCloud' ]}, { where: {id: artistId}}, function (err, artist){
             console.log(artist)
             if(err){
                 return res.status(422).send({error:{message:err.message}});
