@@ -11,20 +11,23 @@ module.exports = function(Artist) {
 
     Artist.upload = function (req,res,cb) {
         //if(!options) options = {};
-        ctx.req.params.container = 'images';
+        //ctx.req.params.container = 'images';
         Artist.app.models.container.upload(req,res,{container: "images"},function (err,fileObj) {
+            
             if(err) {
                 cb(err);
             } else {
-                console.log("image uploaded", fileObj.files);
+                //console.log("image uploaded", fileObj.files);
                 var fileInfo = fileObj.files;
+                console.log("file details", fileInfo);
                 var profPicInfo = {
-                    profPicName: fileInfo.name,
-                    profPicType: fileInfo.type,
-                    container: fileInfo.container,
-                    profPicUrl: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name
+                    profPicName: fileInfo.file[0].name,
+                    profPicType: fileInfo.file[0].type,
+                    container: fileInfo.file[0].container,
+                    profPicUrl: CONTAINERS_URL+fileInfo.file[0].container+'/download/'+fileInfo.file[0].name
                 }
                 console.log("update user for prof pic", req.accessToken);
+                console.log("profpic info", profPicInfo);
                 Artist.findById(req.accessToken.userId, function(err, artist) {
                     
                     if (err) return cb(err);//res.sendStatus(404);
@@ -32,25 +35,10 @@ module.exports = function(Artist) {
                     artist.updateAttributes(profPicInfo, {validate:false}, function(err, artist) {
                     if (err) return cb(err)//res.sendStatus(404);
                       console.log('> profile picture uploaded successfully');
-                      //res.status(200).send({message: "profile picture uploaded!"})
-                      cb(null,obj);
+                      res.status(200).send({message: "profile picture uploaded!"})
+                      //cb(null,obj);
                     });
                 });
-
-                // Artist.create({
-                //     name: fileInfo.name,
-                //     type: fileInfo.type,
-                //     container: fileInfo.container,
-                //     url: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name
-                // },function (err,obj) {
-                //     if (err !== null) {
-                //         cb(err);
-                //     } else {
-                //         cb(null, obj);
-                //     }
-                // });
-
-
             }
         });
     };
@@ -63,7 +51,8 @@ module.exports = function(Artist) {
                 //{ arg: 'ctx', type: 'object', http: { source:'context' } },
                 //{ arg: 'options', type: 'object', http:{ source: 'query'} }
                 {arg: 'req', type: 'object', 'http': {source: 'req'}},
-                {arg: 'res', type: 'object', 'http': {source: 'res'}}
+                {arg: 'res', type: 'object', 'http': {source: 'res'}},
+                {arg: 'token', type: 'string'},
             ],
             returns: {
                 arg: 'fileObject', type: 'object', root: true
