@@ -78,7 +78,7 @@
       }
     },
     "artistVideos": {
-      "type": "hasMany",
+      "type": "hasOne",
       "model": "ArtistVideos",
       "foreignKey": "artistId",
       "options": {

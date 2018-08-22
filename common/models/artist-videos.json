@@ -10,7 +10,7 @@
       "type": "string",
       "required": true
     },
-    "videoURL": {
+    "videoUrl": {
       "type": "string",
       "required": true
     },
