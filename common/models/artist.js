@@ -29,13 +29,13 @@ module.exports = function(Artist) {
                 console.log("update user for prof pic", req.accessToken);
                 console.log("profpic info", profPicInfo);
                 Artist.findById(req.accessToken.userId, function(err, artist) {
-                    
+                    var profPicUrl = CONTAINERS_URL+fileInfo.file[0].container+'/download/'+fileInfo.file[0].name;
                     if (err) return cb(err);//res.sendStatus(404);
                     console.log("file upload", profPicInfo);
                     artist.updateAttributes(profPicInfo, {validate:false}, function(err, artist) {
                     if (err) return cb(err)//res.sendStatus(404);
                       console.log('> profile picture uploaded successfully');
-                      res.status(200).send({message: "profile picture uploaded!"})
+                      res.status(200).send({message: "profile picture uploaded!", url: profPicUrl})
                       //cb(null,obj);
                     });
                 });
