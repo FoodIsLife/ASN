@@ -10,7 +10,10 @@
       "type": "string",
       "required": true
     },
-    "SoundcloudURL": {
+    "soundCloudTitle": {
+      "type": "string"
+    },
+    "soundCloudUrl": {
       "type": "string",
       "required": true
     }

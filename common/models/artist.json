@@ -70,7 +70,7 @@
       }
     },
     "artistSoundClouds": {
-      "type": "hasMany",
+      "type": "hasOne",
       "model": "ArtistSoundCloud",
       "foreignKey": "artistId",
       "options": {
