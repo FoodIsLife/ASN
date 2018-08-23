@@ -19,11 +19,7 @@
       "type": "string",
       "required": true
     },
-    "gigStartDate": {
-      "type": "date",
-      "required": true
-    },
-    "gigEndDate": {
+    "gigDate": {
       "type": "date",
       "required": true
     }
