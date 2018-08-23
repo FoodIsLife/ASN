@@ -62,7 +62,7 @@
       }
     },
     "artistGalleries": {
-      "type": "hasMany",
+      "type": "hasOne",
       "model": "ArtistGallery",
       "foreignKey": "artistId",
       "options": {

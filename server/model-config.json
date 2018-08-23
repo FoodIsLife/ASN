@@ -83,7 +83,13 @@
   },
   "ArtistGallery": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "acls": [{
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "upload"
+    }]
   },
   "container": {
     "dataSource": "storage",
