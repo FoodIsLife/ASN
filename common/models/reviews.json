@@ -8,27 +8,24 @@
   },
   "properties": {
     "artistId": {
-      "type": "string",
-      "required": true
-    },
-    "ReviewSubject": {
       "type": "string"
     },
-    "ReviewDetails": {
-      "type": "string",
-      "required": true
-    },
-    "ReviewerName": {
-      "type": "string",
-      "required": true
-    },
-    "ReviewerEmailAddress": {
+    "reviewSubject": {
       "type": "string"
     },
-    "ReviewerId": {
+    "reviewDetails": {
       "type": "string"
     },
-    "ReviewDate": {
+    "reviewerName": {
+      "type": "string"
+    },
+    "reviewerEmailAddress": {
+      "type": "string"
+    },
+    "reviewerId": {
+      "type": "string"
+    },
+    "reviewDate": {
       "type": "date",
       "required": true
     }
