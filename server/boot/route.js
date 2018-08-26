@@ -90,14 +90,14 @@ module.exports = function(app) {
   });
 
    //show password reset form
-   app.get('/resetpassword', function(req, res, next) {
-    if (!req.accessToken) return res.sendStatus(401);
-    res.redirect('http://localhost:3000/resetpassword?access_token='+ req.accessToken.id)
-    // res.render('password-reset', {
-    //   redirectUrl: '/api/users/reset-password?access_token='+
-    //     req.accessToken.id
-    // });
-  });
+  //  app.get('/resetpassword', function(req, res, next) {
+  //   if (!req.accessToken) return res.sendStatus(401);
+  //   res.redirect('http://localhost:3000/resetpassword?access_token='+ req.accessToken.id)
+  //   // res.render('password-reset', {
+  //   //   redirectUrl: '/api/users/reset-password?access_token='+
+  //   //     req.accessToken.id
+  //   // });
+  // });
 
   //reset user password
   router.post('/reset-password', function(req, res, next) {

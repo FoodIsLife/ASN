@@ -52,7 +52,7 @@ module.exports = function (app) {
 
     //send password reset link when requested
     Artist.on('resetPasswordRequest', function(info) {
-        var url = 'http://localhost:8080/resetpassword'; //this is the default api endpoint of lb
+        var url = 'http://localhost:3000/resetpassword'; //this is the default api endpoint of lb
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 
