@@ -16,7 +16,8 @@ module.exports = function(app) {
       email: req.body.email,
       password: req.body.password,
       userType: req.body.userType,
-      name: req.body.name
+      name: req.body.name,
+      allowsearch: "yes"
     }
 
     if(req.body.artistType){
