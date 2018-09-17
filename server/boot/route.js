@@ -46,7 +46,7 @@ module.exports = function(app) {
         console.log(err);
         res.sendStatus(500)
       }
-      res.redirect('http://localhost:3000/login?confirmed=true')
+      res.redirect('https://localhost:3000/login?confirmed=true')
     });
   });
 
@@ -60,7 +60,7 @@ module.exports = function(app) {
   router.get('/auth/account', function(req,res,next){
     // console.log(req);
   //   //res redirect to login - may code 
-    res.redirect(`http://localhost:8080/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
+    res.redirect(`https://gigifier.com/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
         
   });
   

@@ -16,7 +16,7 @@ module.exports = function (app) {
 
         if (ctx.isNewInstance) {
             console.log("user is new instance creating verification link");
-            var verifyLink= 'http://localhost:8080/confirm' +
+            var verifyLink= 'https://gigifier.com/confirm' +
                             '?uid=' +
                             userInstance.id +
                             '&redirect=/verified';
@@ -52,7 +52,7 @@ module.exports = function (app) {
 
     //send password reset link when requested
     Artist.on('resetPasswordRequest', function(info) {
-        var url = 'http://localhost:3000/resetpassword'; //this is the default api endpoint of lb
+        var url = 'https://gigifier.com/resetpassword'; //this is the default api endpoint of lb
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 
