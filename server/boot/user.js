@@ -48,7 +48,7 @@ module.exports = function (app) {
 
     //send password reset link when requested
     Artist.on('resetPasswordRequest', function(info) {
-        var url = 'https://gigifier.com/server/resetpassword'; //this is the default api endpoint of lb
+        var url = 'https://gigifier.com/resetpassword'; //this is the default api endpoint of lb
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 
