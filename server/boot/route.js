@@ -34,33 +34,27 @@ module.exports = function(app) {
 
   //confirm
   router.get('/confirm', function(req,res){
-    console.log('confirming user');
     var uid = req.query.uid;
     var token = req.query.token;
     var redirect = req.query.redirect;
 
     Artist.confirm(uid, token, redirect, function(err) {
-      //console.log(token)
-      console.log('inside user.confirm');
       if(err){
-        console.log(err);
         res.sendStatus(500)
       }
-      res.redirect('https://localhost:3000/login?confirmed=true')
+      res.redirect('https://gigifier.com/login?confirmed=true')
     });
   });
 
   //verified
   router.get('/verified', function(req, res) {
-    //console.log(res);
     res.sendStatus(200)
   });
 
   
   router.get('/auth/account', function(req,res,next){
-    // console.log(req);
   //   //res redirect to login - may code 
-    res.redirect(`https://gigifier.com/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
+    res.redirect(`https://gigifier.com/server/auth/account?artistId=${req.accessToken.userId}&token=${req.accessToken.id}/`)
         
   });
   
@@ -70,7 +64,6 @@ module.exports = function(app) {
     if (!req.query.accessToken) return res.sendStatus(401);
     Artist.logout(req.query.accessToken, function(err) {
       if (err) return next(err);
-      console.log('user logged out');
       res.send(200);
     });
   });
@@ -84,7 +77,6 @@ module.exports = function(app) {
       if (err) {
         return res.status(401).send(err)
       } else {
-        console.log('check email for password reset');
         res.status(200).send({message:"check email for password reset instructions"});
       }
     });
@@ -122,10 +114,8 @@ module.exports = function(app) {
         if (!isMatch) {
           return res.sendStatus(401);
         } else {
-          console.log('new password', req.body.newPassword);
           artist.updateAttribute('password', Artist.hashPassword(req.body.newPassword), function(err, artist) {
             if (err) return res.sendStatus(404);
-            console.log('> password change request processed successfully');
             res.status(200).send({msg: 'password change request processed successfully'});
           });
         }

@@ -12,12 +12,15 @@
     "transports": [
       {
         "type": "smtp",
-        "host": "smtp.gmail.com",
-        "secure": true,
-        "port": 465,
+        "host": "mail.gigifier.com",
+        "secure": false,
+        "port": 587,
+        "tls": {
+          "rejectUnauthorized": false
+        },
         "auth": {
-          "user": "artistsn123@gmail.com",
-          "pass": "artistS0cial"
+          "user": "emails@gigifier.com",
+          "pass": "g1g1f13r123@passw0rd"
         }
       }
     ]

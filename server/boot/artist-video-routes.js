@@ -9,7 +9,6 @@ module.exports = function(app) {
 
     // router.post('/artistVideos', function(req, res){
 
-    //     console.log("in create/update artist video", req.accessToken);
         
         
 

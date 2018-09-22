@@ -20,27 +20,22 @@ module.exports = function(Artistgallery) {
                     imageCollection.push(CONTAINERS_URL+fileInfo[keyName][0].container+'/download/'+fileInfo[keyName][0].name)
                 })
 
-                console.log("image collection", imageCollection);
                 var galleryInfo = {
                     artistId: req.accessToken.userId,
                     pictureURL: imageCollection
                 }
                 Artistgallery.findOne({where: {artistId:req.accessToken.userId}}, function(err, artistgallery) {
                     if (artistgallery == null) {
-                        console.log("new entry");
                         Artistgallery.create(galleryInfo,function(err,artistgallery){
                             if(err){
-                                console.log(err);
                                 res.sendStatus(401);
                             } else {
                                 res.status(200).send({message: "artist gallery uyploaded!"})
                             }
                         });
                     } else {
-                        console.log("existing entry", artistgallery);
                         artistgallery.updateAttributes(galleryInfo, {validate:false}, function(err, artistgallery) {
                             if (err) return res.sendStatus(404);
-                              console.log('> artist gallery uploaded successfully');
                               res.status(200).send({message: " artist gallery uploaded!"})
                               
                             });

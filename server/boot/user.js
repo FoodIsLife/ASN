@@ -2,7 +2,7 @@
 
 var config = require('../../server/config.json');
 var path = require('path');
-var senderAddress = "artistsn123@gmail.com"; //Replace this address with your actual address
+var senderAddress = "emails@gigifier.com"; //Replace this address with your actual address
 
 module.exports = function (app) {
     const User = app.models.User;
@@ -11,12 +11,9 @@ module.exports = function (app) {
     //send verification email after registration
     Artist.observe('after save', function (ctx, next) {
         
-        console.log(ctx.instance, 'usercreated!!!!!--------------', ctx.isNewInstance);
         var userInstance = ctx.instance;
-
         if (ctx.isNewInstance) {
-            console.log("user is new instance creating verification link");
-            var verifyLink= 'https://gigifier.com/confirm' +
+            var verifyLink= 'https://gigifier.com/server/confirm' +
                             '?uid=' +
                             userInstance.id +
                             '&redirect=/verified';
@@ -25,20 +22,19 @@ module.exports = function (app) {
                 type: 'email',
                 to: userInstance.email,
                 from: senderAddress,
-                subject: 'Thanks for registering.',
-                //template: path.resolve(__dirname, '../../server/views/verify.ejs'),
+                subject: 'You’re almost there...',
+                template: path.resolve(__dirname, '../../server/views/verify.ejs'),
                 verifyHref: verifyLink,
                 redirect: '/verified',
                 user: userInstance,
-                text: 'Please verify your email by opening this link in a web browser'
             };
 
 
             //create artist after user creation
             // Artist.create(body, function (err, user) {
                 userInstance.verify(options, function (err, response) {
-                    console.log(err)
                     if (err) {
+                        console.log(err)
                         Artist.deleteById(userInstance.id);
                     }
                     //res.sendStatus(200)
@@ -52,7 +48,7 @@ module.exports = function (app) {
 
     //send password reset link when requested
     Artist.on('resetPasswordRequest', function(info) {
-        var url = 'https://gigifier.com/resetpassword'; //this is the default api endpoint of lb
+        var url = 'https://gigifier.com/server/resetpassword'; //this is the default api endpoint of lb
         var html = 'Click <a href="' + url + '?access_token=' +
             info.accessToken.id + '">here</a> to reset your password';
 
@@ -63,7 +59,6 @@ module.exports = function (app) {
             html: html
             }, function(err) {
             if (err) return console.log('> error sending password reset email');
-            console.log('> sending password reset email to:', info.email);
             });
     });
 
