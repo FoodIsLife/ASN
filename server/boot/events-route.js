@@ -4,7 +4,6 @@ module.exports = function(app) {
 
   router.get("/myjobs", function(req, res) {
     var ownerId = req.query.id
-    console.log(ownerId)
     if (ownerId) {
       const db = Events.getDataSource().connector
       const eventCollection = db.collection(Events.modelName)
